@@ -1,0 +1,145 @@
+<!DOCTYPEhtml>
+<html ng-app="MyApp" ng-controller="LayoutController">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">			
+		<script src="assets/lib/foundation-5.4.5/js/vendor/modernizr.js"></script>
+
+	<!-- Framework libraries -->
+		
+		<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
+		<!-- <link rel="stylesheet" href="assets/css/app.css"> -->
+		<link rel="stylesheet" href="assets/css/foundation-icons.css">
+		<link rel="stylesheet" href="app/plugins/angular-loading-bar/loading-bar.css">
+		<link rel="stylesheet" href="assets/lib/c3/c3.css">
+		<link rel="stylesheet" href="css/app.css">
+
+		<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+		<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.js"></script>
+		<script src="assets/lib/angular-1.2.26/angular-route.min.js"></script>
+		<script src="assets/lib/angular-1.2.26/angular-animate.min.js"></script>
+		<script src="assets/lib/angular-foundation-gh-pages/mm-foundation-tpls-0.5.0.js"></script>
+  		<script src="http://maps.googleapis.com/maps/api/js?sensor=false&language=en"></script> 
+  		<script src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"></script>
+  		<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script> 
+  		<script src="assets/lib/c3/c3.min.js"></script>	
+  		<!-- This fixes an error with c3 library where real-time charts break the page when changing focus to another tab. -->
+  		<script src="assets/lib/c3/ifvisible.js"></script>
+  		<!-- <script src="assets/lib/c3/c3-0.4.10-rc1.js"></script>	 -->
+  		
+  		<script src="app/plugins/angular-loading-bar/loading-bar.js"></script>
+  		
+  		<script src="http://code.highcharts.com/highcharts.js"></script>	
+
+	<!-- Components -->
+
+		<!-- Layout -->		
+		<script src="app/components/layout/LayoutController.js"></script>		  		
+
+		<!-- Asset -->		
+		<script src="app/components/asset/AssetController.js"></script>
+		<script src="app/components/asset/assetModelService.js"></script>
+		<script src="app/components/asset/assetFiltersService.js"></script>
+		<script src="app/components/asset/googlemap/GoogleMapService.js"></script>
+
+	<!-- Custom Directives -->
+		<!-- Login -->
+		<script src="app/plugins/directives/authentication/authenticationDirective.js"></script>
+		<!-- <link rel="stylesheet" href="app/plugins/directives/authentication/authentication.css">	 -->
+		<!-- Pagination -->
+		<script src="app/plugins/directives/pagination/dirPagination.js"></script>
+
+	<!-- Shared -->
+		<script src="app/shared/services/ConfigService.js"></script>
+		<script src="app/shared/services/PrestoServices.js"></script>	
+		<script src="app/shared/services/AppModel.js"></script>	
+		<script src="app/shared/services/LineShapeService.js"></script>	
+		<script src="app/shared/services/Highcharts.sparkline.js"></script>
+		<script src="app/shared/services/svgPolygonService.js"></script>		
+		<script src="app/shared/services/C3RealtimeChartService.js"></script>		
+		<script src="app/shared/services/panZoomService.js"></script>
+		<script src="app/shared/services/D3GoogleMap.js"></script>
+		
+		<title>Predictive Analytics</title>
+	</head>
+	<body>
+		<div class="off-canvas-wrap" data-offcanvas>
+			<div class="inner-wrap">
+			  	<div class="row layout-header">
+				    <div class="small-12 medium-4 large-2 columns">			    
+				    	<a href="#/">
+							<img ng-src="assets/images/{{icons.logo}}" class="logo" alt="">
+						</a>
+				    </div>
+				    <div class="medium-4 large-8 toolbar-title">
+				    	<h1 class="app-name-logo">{{appTitle}}</h1>
+				    	<!-- <img ng-src="assets/images/iot-logo.png"> -->
+				    </div>
+				    <div class="small-12 medium-4 large-2 columns toolbar-btns" ng-show="activeSession">
+				        <!-- <a ng-click="showAdmin()">{{labels.admin | lowercase}}</a> |  -->
+				    	<a ng-click="logout()">
+				    		{{labels.logout}} <i class="fi-arrow-right"></i>
+				    	</a>
+				    </div>
+				</div>
+
+				<!-- Title & off-canvas trigger button -->
+				<div class="row" ng-show="activeSession">
+					<div class="large-12 columns tab-bar">						
+					    <nav class="">	
+							<!-- <section>
+								<a ng-click="metricsToggle = !metricsToggle" class="button metrics-icon">
+									<img ng-src="assets/images/metrics.png" alt="">
+									<i class="fi-graph-trend"></i>
+								</a>
+							</section> -->
+							
+					    	<section class="middle tab-bar-section">
+						        <div class="title text-center">&nbsp;</div>						        
+					    	</section>
+
+					    	<section class="right-small">
+					        	<a class="right-off-canvas-toggle menu-icon" href=""><span></span></a>
+					    	</section>
+					    </nav>
+					</div>
+				</div>	
+				
+				<!-- Canvas where rout injects template-->
+				<div ng-view class="layout-ng-view"></div>	
+				
+				<!-- bottom panel -->
+				<!-- <div ng-show="activeSession" ng-controller="AlertsController">
+					<div class="row metrics-panel">
+						<div class="large-12 columns">
+							<a href="" class="toggler" ng-click="showAlertsPanel = !showAlertsPanel">
+								<span class="arrow"></span>
+								<span class="circle"></span>
+							</a>
+							<div class="alerts-panel" ng-include="'app/components/alerts/alertgrids.html'" ng-show="showAlertsPanel"></div>
+						</div>					
+					</div>
+					
+					
+					<div class="row filter-status-bar" ng-show="activeSession">
+						<div class="medium-6 large-5 columns">
+							{{labels.statusbar}}:
+							<span class="tag">{{labels.statusAlerts}}: <span class="">{{statusBar.alerts}}</span> </span> 
+							<span class="tag">{{labels.statusOpenAlerts}}: <span class="">{{statusBar.serviceRequests}}</span></span> 
+						</div>
+						
+						<div class="medium-6 large-4 columns device-status" ng-show="isFloorPlan">
+							{{labels.statusbarDevice}}:
+							<span class="tag">{{labels.statusDevCnt}}: <span class="">{{statusBar.deviceCount}}</span> </span> 
+							<span class="tag">{{labels.statusMissingDev}}: <span class="">{{statusBar.deviceAlerts}}</span></span> 
+						</div>
+					</div>
+				</div> -->	
+
+			  <a class="exit-off-canvas"></a>
+
+			</div>
+		</div>	
+	</body>
+</html>

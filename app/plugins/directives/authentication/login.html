@@ -1,0 +1,22 @@
+<form name="loginFrm" class="login-container" ng-submit="login()" ng-controller="LoginController">
+	<div class="row">
+		<div class="large-4 columns">{{labels.user}}:</div>
+		<div class="large-8 columns"><input type="text" name="IoT-username" required ng-model="loginForm.user" /></div>
+	</div>
+
+	<div class="row">
+		<div class="large-4 columns">{{labels.pass}}:</div>
+		<div class="large-8 columns"><input type="password" name="IoT-password" required ng-model="loginForm.pass" /></div>
+	</div>
+	<div class="row">
+		<div class="large-12 columns">&nbsp;</div>
+	</div>
+	<div class="row">
+		<div class="large-12 columns">
+			<input type="submit" class="button small radius custom-button" text="{{labels.button | uppercase}}">
+		</div>
+	</div>
+	<div class="row">
+		<div class="large-12 columns login-error" ng-hide="error">{{labels.error}}</div>
+	</div>
+</form>

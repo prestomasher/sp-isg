@@ -1,0 +1,77 @@
+<div class="filters-wrapper">
+	<div class="row">
+		<div class="small-12 columns">
+			<div class="filter-fld">
+				<label>{{labels.customer}}
+			    	<select id="customers" ng-model="mapfilter.customer" ng-options="customer.customerName for customer in customersArray" ng-change="getCampusList(mapfilter.customer)">
+			    		<option value="">{{labels.allCustomers}}</option>
+			    	</select>
+			    </label>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="small-12 columns">
+			<div class="filter-fld">
+				<label>{{labels.campus}}
+			        <select id="campus" ng-model="mapfilter.campus" ng-options="campus.campusName for campus in campusArray" ng-change="getBuildingsList(mapfilter.campus)">
+			          <option value="">{{labels.allCampuses}}</option>
+			        </select>
+			      </label>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="large-12 columns">
+			<div class="filter-fld">
+				<label>{{labels.building}}
+			        <select id="building" ng-model="mapfilter.building" ng-options="building.buildingName for building in buildingsArray" ng-change="filterByBuilding(mapfilter.building)">
+			          <option value="">{{labels.allBuildings}}</option>
+			        </select>
+			      </label>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="large-12 columns">
+			<div class="filter-fld">
+				<hr>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="large-12 columns">
+			<div class="filter-fld">
+				<label>{{labels.serial}}
+			        <input type="text" ng-model="deviceSerial">
+			      </label>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="large-12 columns">
+			<a href="" class="button tiny radius asset-go custom-button" ng-click="getDeviceBySerial(deviceSerial)">{{labels.go}}</a>
+			</div>
+	</div>
+
+	<!-- <div class="row">
+		<div class="large-12 columns">&nbsp;</div>
+	</div> -->
+
+	<!-- <div class="row">
+		<div class="large-12 columns">
+			<a href="#/snapshot" class="" >View Snapshot</a>
+		</div>
+	</div> -->
+
+	<!-- <div class="row">
+		<div class="large-12 columns">
+			<a href="#/goalcomparison" class="" >Goal Comparison</a>
+		</div>
+	</div> -->
+</div>

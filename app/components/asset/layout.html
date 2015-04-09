@@ -1,0 +1,111 @@
+<div ng-controller="AssetController">
+	<aside class="right-off-canvas-menu asset-filter-top-location">
+		<ul class="off-canvas-list">
+			<li><label>{{labels.filters}}</label></li>
+		</ul>
+		<div class="filter-content" ng-include="filterTemplate"></div>	
+	</aside>
+	
+	<div class="row">
+		<div class="medium-12 large-12 columns">
+			<!-- legend -->		
+			<div class="row">
+				<div class="medium-12 large-12 columns">
+					<div ng-include="'app/shared/views/legend.html'"></div>
+				</div>	
+			</div>
+
+			<div class="row">
+				<!-- map -->
+				<div class="medium-8 large-8 columns">
+					<div class="responsive-window">
+				  		<div class="titlebar">
+				    		<span class="title"> {{labels.alerts | uppercase}} </span>
+						</div>	  		
+						<div class="window-body">
+							<div id="map-canvas" class="asset-map"></div>
+						</div>
+					</div>	
+				</div>
+
+				<!-- list of cities -->
+				<div class="medium-4 large-4 columns">
+					<!-- table -->
+					<div class="row">						
+						<div class="medium-12 large-12 columns">
+							<div class="responsive-window">
+						  		<div class="titlebar">
+						    		<span class="title"> {{labels.alerts | uppercase}} </span>
+								</div>	  		
+								<div class="window-body realtime-alerts-grid">
+									<div id="rtAlertsChartContainer" class=""></div>
+									<!-- <div class="realtime-alerts-grid">
+										<table>
+											<thead>
+												<tr>
+													<th class="text-center">city</th>
+													<th class="text-center">severity</th>
+												</tr>
+											</thead>
+											<tbody>		
+												
+												<tr ng-repeat="alert in alerts.alertsArray | offset: (alertsPagination.currentPage * alertsPagination.itemsPerPage) - alertsPagination.itemsPerPage | limitTo: alertsPagination.itemsPerPage" ng-class="{selectedRow: alert.city === rtAlertsSelectedCity}" ng-click="getAlertsDetail(alert, alert.city)" >
+													<td ng-class="{selectedRow: alert.city === rtAlertsSelectedCity}">{{alert.city}}</td>						      
+													<td class="text-center" ng-class="{selectedRow: alert.city === rtAlertsSelectedCity}">{{alert.Severity}}</td>
+												</tr> 
+											</tbody>
+										</table>
+									</div>
+									
+									<div>
+										<pagination total-items="alertsPagination.totalItems" page="alertsPagination.currentPage" items-per-page="alertsPagination.itemsPerPage" boundary-links="true" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+									</div> -->
+								</div>
+							</div>
+						</div>
+					</div>					
+				</div>		
+			</div>
+		</div>
+	</div>
+
+	<!-- alert details -->
+	<div class="row">
+		<div class="medium-12 large-12 columns">		
+			<div class="responsive-window">
+		  		<div class="titlebar">
+		    		<span class="title"> {{labels.alertsDetail | uppercase}}: {{rtAlertsSelectedCity | uppercase}} </span>
+				</div>	  		
+				<div class="window-body">
+					<table>
+						<thead>
+							<tr>
+								<th class="text-center">date</th>
+								<th class="text-center">city</th>
+								<th class="text-center">region</th>
+								<th class="text-center">server</th>
+								<!-- <th class="text-center">subject</th> -->
+								<th class="text-center">content</th>
+							</tr>
+						</thead>
+						<tbody>
+							<!-- offset function is declared in LayoutController -->
+							<tr ng-repeat="details in alerts.alertsDetailsArray | offset: (alertsDetailsPagination.currentPage * alertsDetailsPagination.itemsPerPage) - alertsDetailsPagination.itemsPerPage | limitTo: alertsDetailsPagination.itemsPerPage">
+								<td>{{details.email_datetime}}</td>
+								<td>{{details.city}}</td>
+								<td>{{details.region}}</td>
+								<td>{{details.server}}</td>
+								<!-- <td>{{details.email_subject}}</td> -->
+								<td>{{details.email_subject}}</td>
+							</tr>
+						</tbody>
+					</table>
+					<!-- pagination -->
+					<div ng-show="alertsDetailsPagination.totalItems > 0">
+						<pagination total-items="alertsDetailsPagination.totalItems" page="alertsDetailsPagination.currentPage" items-per-page="alertsDetailsPagination.totalItems" boundary-links="true" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
